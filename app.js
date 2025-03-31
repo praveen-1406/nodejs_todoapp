@@ -19,7 +19,7 @@ config({
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors({
-    origin:[process.env.FRONTEND_URl],
+    origin:[process.env.FRONTEND_URL],
     methods:["GET","POST","PUT","DELETE"],
     credentials:true, //send headers.:cookies,...
 }))
