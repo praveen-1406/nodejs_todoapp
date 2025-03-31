@@ -14,7 +14,7 @@ export const login = async (req, res, next) => {
 
         if (!isMatch) return next(new ErrorHandler("Invalid Email or Password", 404))
 
-        sendCookie(user._id, res, `Welcome Back, ${user.name}`, 200)
+        sendCookie(user, res, `Welcome Back, ${user.name}`, 200)
     } catch (error) {
         next(error)
     }
@@ -31,9 +31,9 @@ export const register = async (req, res) => {
         if (user) return next(new ErrorHandler("User Already Exist", 400))
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const { _id } = await User.create({ name, email, password: hashedPassword });
+        user = await User.create({ name, email, password: hashedPassword });
 
-        sendCookie(_id, res, "Registered Successfully", 201);
+        sendCookie(user, res, "Registered Successfully", 201);
     } catch (error) {
         next(error)
     }
